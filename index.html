@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="TazaBishkek — эколого-медицинский проект для молодёжи Бишкека">
+<meta name="theme-color" content="#f4faff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1b2b" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💧%3C/text%3E%3C/svg%3E">
+<title>TazaBishkek — чистый город, здоровая молодёжь</title>
+<style>
+:root{--bg:#f4faff;--surf:#fff;--ink:#0f2a44;--mut:#5b7490;--pri:#2b9be6;--pri2:#bfe3fb;--soft:#e6f4fd;--line:#d3e8f7;--mark:#ffe58a;--sh:0 8px 30px rgba(43,155,230,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1b2b;--surf:#112942;--ink:#e8f4ff;--mut:#9bb6d1;--pri:#5bb8f5;--pri2:#1d4a72;--soft:#16334f;--line:#21486b;--mark:#7a6a1c;--sh:0 8px 30px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0b1b2b;--surf:#112942;--ink:#e8f4ff;--mut:#9bb6d1;--pri:#5bb8f5;--pri2:#1d4a72;--soft:#16334f;--line:#21486b;--mark:#7a6a1c;--sh:0 8px 30px rgba(0,0,0,.35)}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:20px;letter-spacing:.3px;color:var(--ink);text-decoration:none}.logo b{color:var(--pri)}
+nav a{margin-left:20px;color:var(--mut);text-decoration:none;font-size:15px;transition:color .2s}nav a:hover{color:var(--pri)}
+@media(max-width:600px){nav a:not(:last-child){display:none}}
+.hero{position:relative;overflow:hidden;padding:90px 5vw 110px;text-align:center;background:linear-gradient(180deg,var(--soft),var(--bg))}
+.hero h1{font-size:clamp(32px,6vw,58px);margin:0 0 14px;line-height:1.1;animation:up .9s both}
+.hero h1 span{color:var(--pri)}
+.hero p{max-width:620px;margin:0 auto 28px;color:var(--mut);font-size:18px;animation:up .9s .15s both}
+.btn{display:inline-block;padding:13px 28px;border-radius:30px;background:var(--pri);color:#fff;text-decoration:none;font-weight:600;box-shadow:var(--sh);transition:transform .25s;animation:up .9s .3s both}
+.btn:hover{transform:translateY(-3px)}
+.b{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--pri2));opacity:.55;animation:fl 9s ease-in-out infinite}
+.b:nth-child(1){width:90px;height:90px;left:8%;top:20%}.b:nth-child(2){width:50px;height:50px;left:80%;top:15%;animation-delay:-3s}.b:nth-child(3){width:130px;height:130px;left:88%;top:60%;animation-delay:-5s}.b:nth-child(4){width:40px;height:40px;left:20%;top:75%;animation-delay:-2s}.b:nth-child(5){width:70px;height:70px;left:55%;top:8%;animation-delay:-7s}
+@keyframes fl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-26px) scale(1.06)}}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+section{padding:70px 5vw;max-width:1000px;margin:auto}
+h2{font-size:30px;margin:0 0 10px}.lead{color:var(--mut);margin:0 0 30px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--sh);transition:transform .3s}
+.card:hover{transform:translateY(-6px)}.card i{font-style:normal;font-size:30px}.card h3{margin:8px 0 4px}.card p{margin:0;color:var(--mut);font-size:15px}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rv.on{opacity:1;transform:none}
+.sbox{position:relative}
+.sin{display:flex;align-items:center;gap:10px;background:var(--surf);border:2px solid var(--line);border-radius:40px;padding:6px 8px 6px 20px;box-shadow:var(--sh);transition:border-color .25s,box-shadow .25s}
+.sin:focus-within{border-color:var(--pri);box-shadow:0 0 0 5px color-mix(in srgb,var(--pri) 20%,transparent)}
+.sin input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:18px;padding:10px 0}
+.sin button{border:0;border-radius:50%;width:40px;height:40px;background:var(--soft);color:var(--pri);font-size:18px;cursor:pointer;transition:transform .3s}
+.sin button:hover{transform:rotate(90deg)}
+.sug{position:absolute;left:14px;right:14px;top:100%;margin-top:6px;background:var(--surf);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);overflow:hidden;z-index:3;display:none}
+.sug.show{display:block;animation:up .25s both}
+.sug div{padding:10px 18px;cursor:pointer;transition:background .15s,padding-left .2s}
+.sug div:hover,.sug div.act{background:var(--soft);padding-left:26px}.sug b{color:var(--pri)}
+.chips{margin:14px 0 4px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surf);color:var(--mut);padding:6px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:14px;transition:all .2s}.chip:hover{background:var(--pri);color:#fff}
+.status{margin:18px 4px;color:var(--mut);min-height:26px;font-size:15px}
+.bar{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--pri),var(--pri2));width:0;transition:width .5s}
+.res{display:grid;gap:14px}
+.r{background:var(--surf);border:1px solid var(--line);border-left:5px solid var(--pri);border-radius:16px;padding:16px 20px;opacity:0;animation:up .5s forwards}
+.r h3{margin:0 0 4px;display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:18px}
+.pct{font-size:13px;font-weight:700;color:var(--pri);background:var(--soft);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.r p{margin:6px 0 0;color:var(--mut);font-size:15px}.tag{font-size:12px;color:var(--pri);text-transform:uppercase;letter-spacing:.6px}
+mark{background:var(--mark);color:inherit;border-radius:4px;padding:0 2px;animation:pop .5s}
+@keyframes pop{from{background:transparent}}
+.mt{margin-top:8px;height:5px;border-radius:3px;background:var(--soft);overflow:hidden}.mt i{display:block;height:100%;background:var(--pri);border-radius:3px;width:0;transition:width .9s .2s}
+footer{padding:36px 5vw;text-align:center;color:var(--mut);border-top:1px solid var(--line);font-size:14px}
+.tab{display:none}
+@media(max-width:700px){
+body{padding-bottom:84px}
+header{padding:12px 16px}
+.hero{padding:56px 18px 70px}.hero p{font-size:16px}
+.btn{padding:15px 32px;font-size:17px}
+section{padding:46px 16px}h2{font-size:25px}
+.cards{grid-template-columns:1fr 1fr;gap:12px}.card{padding:16px}
+.sin{padding:4px 6px 4px 16px}.sin input{font-size:17px;padding:14px 0}.sin button{width:44px;height:44px}
+.sug{left:0;right:0}.sug div{padding:15px 18px;font-size:17px}
+.chips{flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding-right:16px;scrollbar-width:none}.chip{white-space:nowrap;padding:10px 18px;font-size:15px}
+.r{padding:14px 16px}.r h3{font-size:17px}
+nav.tab{display:flex;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:6;background:var(--surf);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:6px}
+nav.tab a{display:block;flex:1;margin:0;text-align:center;padding:9px 0;border-radius:20px;color:var(--mut);text-decoration:none;font-size:12px;line-height:1.3}
+nav.tab a span{display:block;font-size:20px}
+nav.tab a:active{background:var(--soft);color:var(--pri)}
+}
+@media(hover:none){.card:hover,.btn:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r,.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#top">Taza<b>Bishkek</b></a>
+  <nav><a href="#about">О проекте</a><a href="#topics">Темы</a><a href="#search">Поиск</a><a href="#" id="th" title="Тема">◐</a></nav>
+</header>
+
+<div class="hero" id="top">
+  <i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i>
+  <h1>Чистый воздух.<br><span>Здоровый Бишкек.</span></h1>
+  <p>Эколого-медицинский проект для молодёжи: узнаём, как состояние города влияет на здоровье, и вместе делаем его чище.</p>
+  <a class="btn" href="#search">Найти информацию</a>
+</div>
+
+<section id="about" class="rv">
+  <h2>О проекте</h2>
+  <p class="lead">TazaBishkek объясняет простым языком, как смог, вода и мусор связаны с болезнями, и показывает, что может сделать каждый из нас.</p>
+</section>
+
+<section id="topics">
+  <h2 class="rv">Основные темы</h2>
+  <div class="cards">
+    <div class="card rv"><i>🌫️</i><h3>Воздух</h3><p>Смог, мелкие частицы и дыхание.</p></div>
+    <div class="card rv"><i>💧</i><h3>Вода</h3><p>Чистота воды и кишечные инфекции.</p></div>
+    <div class="card rv"><i>♻️</i><h3>Отходы</h3><p>Мусор, сжигание и почва.</p></div>
+    <div class="card rv"><i>🌳</i><h3>Зелень</h3><p>Деревья и парки как защита города.</p></div>
+  </div>
+</section>
+
+<section id="search">
+  <h2 class="rv">Поиск по знаниям</h2>
+  <p class="lead rv">Начните вводить слово — подсказки и совпадения появляются с каждой буквой.</p>
+  <div class="sbox rv">
+    <div class="sin">
+      <span>🔍</span>
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" autocapitalize="off" spellcheck="false" autocomplete="off" placeholder="Например: астма" aria-label="Поиск">
+      <button id="x" title="Очистить">✕</button>
+    </div>
+    <div class="sug" id="sug"></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="bar" id="bar"></div>
+  <div class="status" id="st"></div>
+  <div class="res" id="res"></div>
+</section>
+
+<nav class="tab"><a href="#top"><span>🏠</span>Главная</a><a href="#about"><span>ℹ️</span>О нас</a><a href="#topics"><span>🌿</span>Темы</a><a href="#search"><span>🔍</span>Поиск</a></nav>
+<footer>© 2026 TazaBishkek · Часть 1: оформление и поиск. Материалы носят познавательный характер и не заменяют консультацию врача.</footer>
+
+<script>
+const D=[
+{t:"Бронхиальная астма",g:"болезнь дыхание лёгкие смог",x:"Хроническое заболевание дыхательных путей с приступами кашля и одышки. Приступы могут провоцироваться смогом, пылью и мелкими частицами в воздухе. При ухудшении качества воздуха в городе людям с астмой стоит сократить время на улице."},
+{t:"Бронхит",g:"болезнь кашель воздух",x:"Воспаление бронхов, которое проявляется кашлем и выделением мокроты. Частый вдыхаемый дым и загрязнённый воздух в холодный сезон повышают риск затяжного кашля, особенно у детей и подростков."},
+{t:"Аллергический ринит",g:"болезнь аллергия пыльца",x:"Насморк, чихание и зуд в носу при контакте с аллергенами: пыльцой, пылью, плесенью. Городская пыль и выхлопы усиливают реакцию организма."},
+{t:"Кишечные инфекции",g:"болезнь вода гигиена",x:"Диарея, рвота и слабость возникают при употреблении некачественной воды и немытых продуктов. Важно мыть руки, кипятить воду из сомнительных источников и не пить из случайных колонок."},
+{t:"Отравление угарным газом",g:"болезнь газ отопление зима",x:"Угарный газ не имеет запаха и образуется при неполном сгорании топлива в печах и котлах. Признаки: головная боль, головокружение, тошнота. Помещение нужно проветрить, а при подозрении на отравление вызвать скорую помощь."},
+{t:"Сердечно-сосудистые болезни",g:"болезнь сердце давление pm2.5",x:"Длительное вдыхание мелких частиц PM2.5 связывают с повышенным риском болезней сердца и сосудов. Меньше смога значит меньше нагрузки на сердце."},
+{t:"Конъюнктивит",g:"болезнь глаза пыль",x:"Покраснение и раздражение глаз бывает инфекционным или аллергическим. Пыль и дым могут усиливать жжение, поэтому не трите глаза грязными руками."},
+{t:"Смог в Бишкеке",g:"экология воздух зима",x:"Зимой в низинах скапливаются дым от печей, выхлопные газы и пыль, и воздух становится особенно грязным. Помогают переход на более чистое отопление, контроль транспорта и озеленение."},
+{t:"Мелкие частицы PM2.5",g:"экология воздух пыль",x:"Это частицы меньше 2,5 микрона: они проникают глубоко в лёгкие. Следите за индексом качества воздуха и в плохие дни используйте маску и ограничивайте прогулки."},
+{t:"Бытовые отходы и сжигание мусора",g:"экология мусор дым",x:"Сжигание пластика выделяет вредные вещества. Сортировка отходов, сдача вторсырья и отказ от одноразового пластика сокращают количество мусора и дыма."},
+{t:"Чистая вода и арыки",g:"экология вода река",x:"Бытовой мусор в арыках и реках загрязняет воду и почву. Уборка берегов и просвещение жителей помогают сохранить водоёмы города чистыми."},
+{t:"Зелёные зоны и деревья",g:"экология парк озеленение",x:"Деревья задерживают пыль, дают тень и снижают шум. Посадка и уход за деревьями во дворах и парках делают город прохладнее и здоровее."}
+];
+const $=id=>document.getElementById(id),n=s=>s.toLowerCase().replace(/ё/g,"е"),esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function hl(s,q){const L=n(s);let o="",i=0,k;while(q&&(k=L.indexOf(q,i))>-1){o+=esc(s.slice(i,k))+"<mark>"+esc(s.slice(k,k+q.length))+"</mark>";i=k+q.length}return o+esc(s.slice(i))}
+function snip(s,q){const k=n(s).indexOf(q);if(k<0)return s.slice(0,130)+"…";const a=Math.max(0,k-45),b=Math.min(s.length,k+q.length+95);return(a?"…":"")+s.slice(a,b)+(b<s.length?"…":"")}
+function score(d,q){let s=0,w="";const t=n(d.t),g=n(d.g),x=n(d.x);
+ if(t.startsWith(q)){s+=100;w="в названии"}else if(t.split(/[\s-]+/).some(v=>v.startsWith(q))){s+=85;w="в названии"}else if(t.includes(q)){s+=70;w="в названии"}
+ if(g.split(" ").some(v=>v.startsWith(q))){s+=40;w=w||"по теме"}
+ const c=x.split(q).length-1;if(c){s+=Math.min(60,20+c*10);w=w||"в тексте"}
+ return{s,w}}
+const q=$("q"),sug=$("sug"),res=$("res"),st=$("st"),bar=$("bar");let act=-1;
+function words(){const set=new Set();D.forEach(d=>(d.t+" "+d.g).split(/[\s,-]+/).forEach(w=>{if(w.length>3)set.add(w.toLowerCase())}));return[...set]}
+const W=words();
+function run(){const v=n(q.value.trim());act=-1;
+ if(!v){res.innerHTML="";st.textContent="";sug.classList.remove("show");bar.style.width=0;return}
+ const sg=W.filter(w=>n(w).startsWith(v)&&n(w)!==v).slice(0,5);
+ sug.innerHTML=sg.map(w=>`<div data-w="${w}"><b>${esc(w.slice(0,v.length))}</b>${esc(w.slice(v.length))}</div>`).join("");
+ sug.classList.toggle("show",sg.length>0);
+ const r=D.map(d=>({d,...score(d,v)})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s);
+ bar.style.width=Math.min(100,v.length*14)+"%";
+ st.textContent=r.length?`Найдено совпадений: ${r.length}`:"Ничего не найдено. Попробуйте другие буквы.";
+ res.innerHTML=r.map((o,i)=>{const p=Math.min(100,o.s);return`<div class="r" style="animation-delay:${i*70}ms"><span class="tag">${o.w}</span><h3><span>${hl(o.d.t,v)}</span><span class="pct">${p}%</span></h3><p>${hl(snip(o.d.x,v),v)}</p><div class="mt"><i data-p="${p}"></i></div></div>`}).join("");
+ requestAnimationFrame(()=>requestAnimationFrame(()=>res.querySelectorAll(".mt i").forEach(e=>e.style.width=e.dataset.p+"%")))}
+q.addEventListener("input",run);
+q.addEventListener("keydown",e=>{const it=[...sug.children];if(!it.length)return;
+ if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();act=(act+(e.key==="ArrowDown"?1:-1)+it.length)%it.length;it.forEach((x,i)=>x.classList.toggle("act",i===act))}
+ if(e.key==="Enter"&&act>-1){q.value=it[act].dataset.w;run();sug.classList.remove("show")}});
+sug.addEventListener("click",e=>{const d=e.target.closest("[data-w]");if(d){q.value=d.dataset.w;run();sug.classList.remove("show")}});
+$("x").onclick=()=>{q.value="";run();q.focus()};
+document.addEventListener("click",e=>{if(!e.target.closest(".sbox"))sug.classList.remove("show")});
+$("chips").innerHTML=["астма","смог","вода","кашель","мусор","сердце"].map(c=>`<button class="chip">${c}</button>`).join("");
+$("chips").onclick=e=>{if(e.target.classList.contains("chip")){q.value="";type(e.target.textContent)}};
+function type(w){let i=0;clearInterval(type.t);type.t=setInterval(()=>{q.value=w.slice(0,++i);run();if(i>=w.length)clearInterval(type.t)},130)}
+// печатающийся placeholder
+(()=>{const ex=["астма","смог","вода","кашель"];let a=0,b=0,dir=1;setInterval(()=>{if(document.activeElement===q||q.value)return;b+=dir;q.placeholder="Например: "+ex[a].slice(0,b);if(b>=ex[a].length)dir=-1;if(b<=0){dir=1;a=(a+1)%ex.length}},180)})();
+// появление при прокрутке
+try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}}),{threshold:.15});document.querySelectorAll(".rv").forEach((e,i)=>{e.style.transitionDelay=(i%4)*80+"ms";io.observe(e)})}catch(e){document.querySelectorAll(".rv").forEach(e=>e.classList.add("on"))}
+$("th").onclick=e=>{e.preventDefault();const r=document.documentElement,d=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=d?"light":"dark"};
+</script>
+</body>
+</html>
