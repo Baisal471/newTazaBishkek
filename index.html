@@ -77,6 +77,21 @@ nav.tab a span{display:block;font-size:20px}
 nav.tab a:active{background:var(--soft);color:var(--pri)}
 }
 @media(hover:none){.card:hover,.btn:hover{transform:none}}
+.mo{position:fixed;inset:0;z-index:20;background:rgba(10,30,50,.5);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.mo.on{opacity:1;pointer-events:auto}
+.sh{position:relative;background:var(--surf);width:100%;max-width:720px;max-height:92%;overflow:auto;border-radius:26px 26px 0 0;padding:20px 22px calc(28px + env(safe-area-inset-bottom,0px));transform:translateY(40px);transition:transform .35s;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.mo.on .sh{transform:none}
+@media(min-width:701px){.mo{align-items:center}.sh{border-radius:26px;max-height:86%}}
+.cl{position:sticky;top:0;float:right;width:44px;height:44px;border:0;border-radius:50%;background:var(--soft);color:var(--pri);font-size:18px;cursor:pointer}
+.sh h2{font-size:26px;line-height:1.2;margin:6px 0 8px}.sh h3{margin:24px 0 10px}.meta{color:var(--mut);font-size:14px;margin-bottom:18px}
+.sh p{font-size:17px;line-height:1.7;margin:0 0 14px}
+.tip{background:var(--soft);border-left:5px solid var(--pri);border-radius:14px;padding:14px 16px;margin:18px 0;font-size:16px}
+.rel{display:grid;gap:8px}.rel a{display:block;padding:13px 16px;border:1px solid var(--line);border-radius:14px;color:var(--ink);cursor:pointer}.rel a:active{background:var(--soft)}
+.rd{display:inline-block;margin-top:10px;color:var(--pri);font-weight:600;font-size:14px}.r{cursor:pointer}
+body.lock{overflow:hidden}
+.goals{padding-left:20px;color:var(--mut)}.goals li{margin:8px 0}
+.fact{margin-top:26px;padding:22px;border-radius:22px;background:linear-gradient(135deg,var(--soft),var(--surf));border:1px solid var(--line);box-shadow:var(--sh)}
+.fact small{color:var(--pri);font-weight:700;text-transform:uppercase;letter-spacing:.6px}.fact p{font-size:18px;margin:8px 0 14px;transition:opacity .3s;min-height:56px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r,.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -93,9 +108,18 @@ nav.tab a:active{background:var(--soft);color:var(--pri)}
   <a class="btn" href="#search">Найти информацию</a>
 </div>
 
-<section id="about" class="rv">
-  <h2>О проекте</h2>
-  <p class="lead">TazaBishkek объясняет простым языком, как смог, вода и мусор связаны с болезнями, и показывает, что может сделать каждый из нас.</p>
+<section id="about">
+  <h2 class="rv">О проекте и команде</h2>
+  <p class="lead rv">TazaBishkek объясняет простым языком, как смог, вода и мусор связаны с болезнями, и показывает, что может сделать каждый из нас. Мы — молодёжный эколого-медицинский проект, который помогает жителям Бишкека заботиться о своём здоровье и о городе.</p>
+  <div class="cards">
+    <div class="card rv"><i>🩺</i><h3>Медицина</h3><p>Понятные статьи о болезнях, профилактике и первых признаках.</p></div>
+    <div class="card rv"><i>🌍</i><h3>Экология</h3><p>Воздух, вода, отходы и зелёные зоны нашего города.</p></div>
+    <div class="card rv"><i>🤝</i><h3>Волонтёры</h3><p>Уборки, посадки деревьев и акции по сортировке мусора.</p></div>
+    <div class="card rv"><i>💻</i><h3>Цифровой проект</h3><p>Сайт с поиском знаний, который удобно читать с телефона.</p></div>
+  </div>
+  <h3 class="rv" style="margin:34px 0 8px">Наши цели</h3>
+  <ul class="goals rv"><li>Рассказывать молодёжи о связи экологии и здоровья без сложных терминов.</li><li>Собрать базу статей, где нужное находится по первым буквам.</li><li>Проводить уборки, посадки деревьев и акции по сортировке мусора.</li><li>Помогать жителям защищаться от смога и грязной воды.</li></ul>
+  <div class="fact rv"><small>Интересно знать</small><p id="fp"></p><button class="chip" id="fb">Ещё факт ✨</button></div>
 </section>
 
 <section id="topics">
@@ -125,8 +149,9 @@ nav.tab a:active{background:var(--soft);color:var(--pri)}
   <div class="res" id="res"></div>
 </section>
 
+<div class="mo" id="mo" aria-hidden="true"><div class="sh" role="dialog" aria-modal="true"><button class="cl" id="mc" aria-label="Закрыть">✕</button><div id="mb"></div></div></div>
 <nav class="tab"><a href="#top"><span>🏠</span>Главная</a><a href="#about"><span>ℹ️</span>О нас</a><a href="#topics"><span>🌿</span>Темы</a><a href="#search"><span>🔍</span>Поиск</a></nav>
-<footer>© 2026 TazaBishkek · Часть 1: оформление и поиск. Материалы носят познавательный характер и не заменяют консультацию врача.</footer>
+<footer>© 2026 TazaBishkek · Материалы носят познавательный характер и не заменяют консультацию врача.</footer>
 
 <script>
 const D=[
@@ -141,7 +166,30 @@ const D=[
 {t:"Мелкие частицы PM2.5",g:"экология воздух пыль",x:"Это частицы меньше 2,5 микрона: они проникают глубоко в лёгкие. Следите за индексом качества воздуха и в плохие дни используйте маску и ограничивайте прогулки."},
 {t:"Бытовые отходы и сжигание мусора",g:"экология мусор дым",x:"Сжигание пластика выделяет вредные вещества. Сортировка отходов, сдача вторсырья и отказ от одноразового пластика сокращают количество мусора и дыма."},
 {t:"Чистая вода и арыки",g:"экология вода река",x:"Бытовой мусор в арыках и реках загрязняет воду и почву. Уборка берегов и просвещение жителей помогают сохранить водоёмы города чистыми."},
-{t:"Зелёные зоны и деревья",g:"экология парк озеленение",x:"Деревья задерживают пыль, дают тень и снижают шум. Посадка и уход за деревьями во дворах и парках делают город прохладнее и здоровее."}
+{t:"Зелёные зоны и деревья",g:"экология парк озеленение",x:"Деревья задерживают пыль, дают тень и снижают шум. Посадка и уход за деревьями во дворах и парках делают город прохладнее и здоровее."},
+{t:"Индекс качества воздуха (AQI)",c:"Воздух",g:"воздух индекс смог приложение",x:"Индекс качества воздуха переводит концентрацию вредных частиц в понятную шкалу от 0 до 500. До 50 воздух считается хорошим, выше 150 он вреден для всех, а выше 300 опасен. Проверяйте индекс в приложении перед прогулкой или тренировкой на улице.",k:"В дни с высоким индексом занимайтесь спортом в помещении."},
+{t:"Маски от смога",c:"Воздух",g:"воздух маска респиратор смог защита",x:"Обычная тканевая или хирургическая маска почти не задерживает мелкие частицы PM2.5. Лучше защищают респираторы классов FFP2 и N95, если они плотно прилегают к лицу. Маска не заменяет чистый воздух, но снижает нагрузку в самые грязные дни.",k:"Выбирайте маску по размеру лица и меняйте её по инструкции."},
+{t:"Очистители воздуха дома",c:"Воздух",g:"воздух очиститель фильтр дом пыль",x:"Бытовые очистители с HEPA-фильтром уменьшают количество пыли и мелких частиц в комнате. Прибор нужно подбирать по площади помещения и вовремя менять фильтры. Проветривайте комнату, когда на улице воздух чище.",k:"Ставьте очиститель в спальню и держите окна закрытыми в дни смога."},
+{t:"Смог и лёгкие детей",c:"Дыхание",g:"дыхание дети лёгкие смог кашель",x:"Лёгкие детей и подростков ещё растут, поэтому они особенно чувствительны к грязному воздуху. Частый кашель, одышка и простуды в смоговый сезон могут быть поводом обратиться к врачу.",k:"Сокращайте прогулки у дорог и в дни сильного смога."},
+{t:"Пневмония",c:"Инфекции",g:"болезнь инфекции лёгкие температура кашель",x:"Это воспаление лёгочной ткани, которое чаще вызывают вирусы или бактерии. Признаки: высокая температура, кашель, одышка и боль в груди. Грязный воздух и курение ослабляют защиту лёгких.",k:"При таких симптомах обратитесь к врачу, не занимайтесь самолечением."},
+{t:"Артериальная гипертония",c:"Сердце",g:"болезнь сердце давление сосуды соль",x:"Повышенное давление долго может не давать симптомов, но повреждает сосуды и сердце. Риск растёт при малоподвижности, избытке соли, стрессе и курении.",k:"Измеряйте давление регулярно, при высоких цифрах идите к врачу."},
+{t:"Спорт и здоровье сердца",c:"Сердце",g:"сердце спорт ходьба активность парк",x:"Около 150 минут умеренной нагрузки в неделю, например быстрой ходьбы, укрепляют сердце и сосуды. Заниматься лучше в парках на чистом воздухе, а в смоговые дни перенести тренировку в помещение.",k:"Начните с 20 минут быстрой ходьбы в день."},
+{t:"Городской шум и здоровье",c:"Экология",g:"экология шум сон стресс давление",x:"Постоянный городской шум повышает стресс, мешает сну и может влиять на давление. Деревья, спокойные дворы и закрытые окна помогают снизить его влияние.",k:"Сажайте деревья и кустарники вдоль дорог и дворов."},
+{t:"Здоровый сон подростка",c:"Профилактика",g:"здоровье сон иммунитет подростки",x:"Подросткам обычно нужно 8–10 часов сна. Недосып снижает иммунитет, внимание и настроение. Проветривайте комнату перед сном и уберите телефон за час до отбоя.",k:"Ложитесь и вставайте в одно и то же время."},
+{t:"Гепатит А",c:"Инфекции",g:"болезнь инфекции печень вода руки вакцина",x:"Вирусная инфекция печени, которая передаётся через грязные руки, воду и еду. Признаки: слабость, тошнота, желтоватый оттенок кожи. Защищают чистая вода, мытьё рук и вакцинация по рекомендации врача.",k:"Мойте руки с мылом и не пейте воду из сомнительных источников."},
+{t:"Гельминты (глистные инвазии)",c:"Инфекции",g:"болезнь инфекции паразиты овощи руки",x:"Паразитические черви попадают в организм через немытые овощи, фрукты, воду и грязные руки. Признаки: усталость, боли в животе, снижение аппетита. Диагноз ставит врач по анализам.",k:"Тщательно мойте овощи и фрукты и соблюдайте гигиену."},
+{t:"Грипп и ОРВИ",c:"Инфекции",g:"болезнь инфекции грипп простуда вирус вакцина",x:"Эти вирусы передаются воздушно-капельным путём, особенно в закрытых и душных помещениях. Проветривание, мытьё рук, вакцинация от гриппа и отдых во время болезни снижают распространение. Грязный воздух ослабляет слизистую дыхательных путей.",k:"Заболели? Оставайтесь дома и не заражайте одноклассников."},
+{t:"Как правильно мыть руки",c:"Профилактика",g:"здоровье руки мыло гигиена инфекции",x:"Мытьё рук с мылом около 20 секунд снижает риск кишечных и респираторных инфекций. Намыливайте ладони, тыльную сторону, пальцы и под ногтями. Мойте руки после улицы, туалета и перед едой.",k:"Носите с собой маленькое мыло или антисептик."},
+{t:"Качество питьевой воды",c:"Вода",g:"вода питьевая фильтр кипячение трубы",x:"Вода из-под крана должна соответствовать нормам, но старые трубы могут ухудшать её качество. Кипячение убивает большинство микробов, но не удаляет химические примеси. Для очистки используйте проверенные фильтры и вовремя меняйте картриджи.",k:"Храните кипячёную воду в чистой закрытой ёмкости."},
+{t:"Нитраты в воде и овощах",c:"Вода",g:"вода нитраты овощи удобрения",x:"Избыток нитратов из удобрений может попадать в воду и овощи. Особенно осторожными нужно быть с питанием младенцев. Овощи нужно мыть, а по возможности выбирать сезонные и проверенные.",k:"Покупайте овощи сезонно и промывайте под проточной водой."},
+{t:"Сколько воды нужно пить",c:"Вода",g:"вода здоровье питьё жара",x:"Обычно человеку хватает 1,5–2 литров жидкости в день, а в жару и при нагрузке нужно больше. Важно пить чистую воду, а не только сладкие напитки. Светло-жёлтый цвет мочи говорит о достаточном питье.",k:"Держите бутылку воды рядом на уроках и тренировках."},
+{t:"Ледники Тянь-Шаня и наша вода",c:"Вода",g:"вода ледники горы реки климат",x:"Ледники питают реки Кыргызстана и дают воду для городов и полей. Их таяние меняет режим рек и может влиять на запасы воды летом. Бережное отношение к воде важно для будущих поколений.",k:"Закрывайте кран, пока чистите зубы."},
+{t:"Сортировка мусора",c:"Экология",g:"экология мусор отходы вторсырьё батарейки",x:"Раздельный сбор бумаги, пластика, стекла и металла уменьшает количество отходов. Батарейки, лампы и электронику нужно сдавать отдельно, потому что они содержат опасные вещества.",k:"Заведите дома два контейнера: для вторсырья и для остального."},
+{t:"Пластик и микропластик",c:"Экология",g:"экология пластик микропластик бутылка вода",x:"Пластик разлагается сотни лет, распадаясь на мельчайшие частицы. Их находят в воде, почве и продуктах. Многоразовые сумка и бутылка — простой способ сократить количество пластика.",k:"Откажитесь от одноразовых пакетов и трубочек."},
+{t:"Печное отопление и чистое топливо",c:"Воздух",g:"воздух отопление уголь печи дым зима",x:"Сжигание сырого угля и мусора в печах даёт много дыма и сажи. Сухие дрова, качественное топливо, утепление дома и переход на электрическое отопление сокращают выбросы.",k:"Никогда не сжигайте в печи пластик и мусор."},
+{t:"Транспорт и выхлопы",c:"Воздух",g:"воздух транспорт машины выхлопы велосипед",x:"Автомобили выбрасывают оксиды азота и мелкие частицы. Пешие прогулки, велосипед, общественный транспорт и своевременный техосмотр снижают нагрузку на воздух города.",k:"Короткие поездки лучше проходить пешком."},
+{t:"Весенняя аллергия на пыльцу",c:"Дыхание",g:"болезнь аллергия пыльца весна нос",x:"Цветение растений вызывает чихание, слёзы и зуд в глазах. Следите за прогнозом пыльцы, промывайте нос солевым раствором и принимайте душ после улицы. Лекарства подбирает врач.",k:"В сезон цветения сушите бельё в помещении."},
+{t:"Экологическая тревога",c:"Здоровье",g:"здоровье стресс тревога волонтёры психика",x:"Новости о загрязнении могут вызывать тревогу и чувство бессилия. Помогают конкретные действия: уборка двора, посадка дерева, участие в волонтёрских акциях и разговор с близкими.",k:"Выберите одно маленькое дело и сделайте его на этой неделе."}
 ];
 const $=id=>document.getElementById(id),n=s=>s.toLowerCase().replace(/ё/g,"е"),esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function hl(s,q){const L=n(s);let o="",i=0,k;while(q&&(k=L.indexOf(q,i))>-1){o+=esc(s.slice(i,k))+"<mark>"+esc(s.slice(k,k+q.length))+"</mark>";i=k+q.length}return o+esc(s.slice(i))}
@@ -162,7 +210,7 @@ function run(){const v=n(q.value.trim());act=-1;
  const r=D.map(d=>({d,...score(d,v)})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s);
  bar.style.width=Math.min(100,v.length*14)+"%";
  st.textContent=r.length?`Найдено совпадений: ${r.length}`:"Ничего не найдено. Попробуйте другие буквы.";
- res.innerHTML=r.map((o,i)=>{const p=Math.min(100,o.s);return`<div class="r" style="animation-delay:${i*70}ms"><span class="tag">${o.w}</span><h3><span>${hl(o.d.t,v)}</span><span class="pct">${p}%</span></h3><p>${hl(snip(o.d.x,v),v)}</p><div class="mt"><i data-p="${p}"></i></div></div>`}).join("");
+ res.innerHTML=r.map((o,i)=>{const p=Math.min(100,o.s);return`<div class="r" tabindex="0" role="button" data-i="${D.indexOf(o.d)}" style="animation-delay:${i*70}ms"><span class="tag">${o.w}</span><h3><span>${hl(o.d.t,v)}</span><span class="pct">${p}%</span></h3><p>${hl(snip(o.d.x,v),v)}</p><div class="mt"><i data-p="${p}"></i></div><span class="rd">Читать статью →</span></div>`}).join("");
  requestAnimationFrame(()=>requestAnimationFrame(()=>res.querySelectorAll(".mt i").forEach(e=>e.style.width=e.dataset.p+"%")))}
 q.addEventListener("input",run);
 q.addEventListener("keydown",e=>{const it=[...sug.children];if(!it.length)return;
@@ -171,13 +219,29 @@ q.addEventListener("keydown",e=>{const it=[...sug.children];if(!it.length)return
 sug.addEventListener("click",e=>{const d=e.target.closest("[data-w]");if(d){q.value=d.dataset.w;run();sug.classList.remove("show")}});
 $("x").onclick=()=>{q.value="";run();q.focus()};
 document.addEventListener("click",e=>{if(!e.target.closest(".sbox"))sug.classList.remove("show")});
-$("chips").innerHTML=["астма","смог","вода","кашель","мусор","сердце"].map(c=>`<button class="chip">${c}</button>`).join("");
-$("chips").onclick=e=>{if(e.target.classList.contains("chip")){q.value="";type(e.target.textContent)}};
+$("chips").innerHTML=["все статьи","астма","смог","вода","кашель","мусор","сердце"].map(c=>`<button class="chip">${c}</button>`).join("");
+$("chips").onclick=e=>{if(e.target.classList.contains("chip")){if(e.target.textContent==="все статьи")return all();q.value="";type(e.target.textContent)}};
 function type(w){let i=0;clearInterval(type.t);type.t=setInterval(()=>{q.value=w.slice(0,++i);run();if(i>=w.length)clearInterval(type.t)},130)}
 // печатающийся placeholder
 (()=>{const ex=["астма","смог","вода","кашель"];let a=0,b=0,dir=1;setInterval(()=>{if(document.activeElement===q||q.value)return;b+=dir;q.placeholder="Например: "+ex[a].slice(0,b);if(b>=ex[a].length)dir=-1;if(b<=0){dir=1;a=(a+1)%ex.length}},180)})();
 // появление при прокрутке
 try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}}),{threshold:.15});document.querySelectorAll(".rv").forEach((e,i)=>{e.style.transitionDelay=(i%4)*80+"ms";io.observe(e)})}catch(e){document.querySelectorAll(".rv").forEach(e=>e.classList.add("on"))}
+
+const F=["Taza по-кыргызски значит «чистый», а Taza Bishkek — «Чистый Бишкек».","Частицы PM2.5 тоньше человеческого волоса примерно в 30 раз, поэтому проникают глубоко в лёгкие.","Сердце человека делает около 100 тысяч ударов в день.","Взрослый человек делает около 20 тысяч вдохов в сутки — и каждый зависит от качества воздуха.","Примерно 60% массы тела взрослого человека составляет вода.","Пластиковая бутылка разлагается сотни лет, а многоразовая служит годами.","Большая часть территории Кыргызстана — горы, а ледники питают наши реки."];let fi=0;
+function fact(){const p=$("fp");p.style.opacity=0;setTimeout(()=>{p.textContent=F[fi++%F.length];p.style.opacity=1},250)}
+$("fb").onclick=fact;fact();
+const cat=d=>d.c||(d.g.includes("болезнь")?"Здоровье":"Экология"),mo=$("mo"),mb=$("mb");
+function all(){q.value="";sug.classList.remove("show");bar.style.width="100%";st.textContent="Все статьи: "+D.length;res.innerHTML=D.map((d,i)=>`<div class="r" tabindex="0" role="button" data-i="${i}" style="animation-delay:${Math.min(i,12)*50}ms"><span class="tag">${cat(d)}</span><h3><span>${esc(d.t)}</span></h3><p>${esc(d.x.slice(0,100))}…</p><span class="rd">Читать статью →</span></div>`).join("")}
+function openA(i){const d=D[i],s=d.x.match(/[^.!?]+[.!?]+/g)||[d.x],ps=[];for(let k=0;k<s.length;k+=2)ps.push(s.slice(k,k+2).join("").trim());
+ const rel=D.map((e,j)=>({e,j})).filter(o=>o.j!==i&&cat(o.e)===cat(d)).slice(0,3);
+ mb.innerHTML=`<span class="tag">${cat(d)}</span><h2>${esc(d.t)}</h2><div class="meta">Чтение: ~${Math.max(1,Math.round(d.x.split(" ").length/150))} мин</div>`+ps.map(x=>`<p>${esc(x)}</p>`).join("")+(d.k?`<div class="tip"><b>Что делать:</b> ${esc(d.k)}</div>`:"")+(rel.length?`<h3>Читайте также</h3><div class="rel">${rel.map(o=>`<a data-i="${o.j}">${esc(o.e.t)}</a>`).join("")}</div>`:"")+`<p class="meta" style="margin-top:20px">Материал познавательный и не заменяет консультацию врача.</p>`;
+ mo.classList.add("on");document.body.classList.add("lock");mo.firstElementChild.scrollTop=0}
+function closeA(){mo.classList.remove("on");document.body.classList.remove("lock")}
+res.addEventListener("click",e=>{const r=e.target.closest(".r");if(r)openA(+r.dataset.i)});
+res.addEventListener("keydown",e=>{if(e.key==="Enter"){const r=e.target.closest(".r");if(r)openA(+r.dataset.i)}});
+mb.addEventListener("click",e=>{const a=e.target.closest("[data-i]");if(a)openA(+a.dataset.i)});
+$("mc").onclick=closeA;mo.addEventListener("click",e=>{if(e.target===mo)closeA()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeA()});
 $("th").onclick=e=>{e.preventDefault();const r=document.documentElement,d=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=d?"light":"dark"};
 </script>
 </body>
